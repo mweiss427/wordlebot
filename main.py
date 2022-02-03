@@ -1,4 +1,4 @@
-from bot import getFirstWord, getNextWord
+from bot import getFirstWord, getSecondWord, getThirdWord, getFourthWord, getFifthWord, getSixthWord
 from analysis import Letters, Word
 from decimal import *
 
@@ -19,7 +19,7 @@ fword.setMap(input())
 wordList = [fword]
 fword.printWord()
 
-sword = getNextWord(wordList)
+sword = getSecondWord(wordList)
 sword.printWord()
 wordList.append(sword)
 
@@ -29,7 +29,7 @@ print('''Enter String Map
 # n nothing''')
 sword.setMap(input())
 
-tword = getNextWord(wordList)
+tword = getThirdWord(wordList)
 tword.printWord()
 wordList.append(tword)
 
@@ -39,7 +39,7 @@ print('''Enter String Map
 # n nothing''')
 tword.setMap(input())
 
-fword = getNextWord(wordList)
+fword = getFourthWord(wordList)
 fword.printWord()
 wordList.append(fword)
 print('''Enter String Map
@@ -48,7 +48,7 @@ print('''Enter String Map
 # n nothing''')
 fword.setMap(input())
 
-fiveword = getNextWord(wordList)
+fiveword = getFifthWord(wordList)
 fiveword.printWord()
 wordList.append(fiveword)
 
@@ -58,7 +58,7 @@ print('''Enter String Map
 # n nothing''')
 fiveword.setMap(input())
 
-sixword = getNextWord(wordList)
+sixword = getSixthWord(wordList)
 sixword.printWord()
 wordList.append(sixword)
 

@@ -11,6 +11,14 @@ class Words:
             for text in word_file:
                 self.list.append(Word(text.lower().strip(), "uuuuu"))
 
+    def getHighestRanked(self):
+        # genesis word
+        word = Word("zzzzz", "uuuuu")
+        for cword in self.list:
+            if word.isChallengerHigherValue(cword):
+                word = cword
+        return(word)
+
     def getList(self):
         for word in self.list:
             print(word)
@@ -20,10 +28,12 @@ class Words:
 class Word:
     name = []
     map = []
+    rank = 0
 
     def __init__(self, word, map):
         self.name = str(word)
         self.map = map
+        self.rank = self.getInitialRank()
 
     def __eq__(self, other):
         if (self.name == other.name and self.map == other.map):
@@ -36,6 +46,18 @@ class Word:
 
     def setMap(self, map):
         self.map = map
+
+    """ """
+
+    def updateRank(self, wordList):
+        # first lets loop and zero out the words we know not to be true
+
+        # Loop through the letters of the played words.
+        #
+        for word in wordList:
+            for letter in word.letters(self):
+                if(letter.map == "n" and self.name.__contains__(letter.char)):
+                    word.rank = 0
 
     """
     gets an array of letters.
@@ -51,7 +73,7 @@ class Word:
 
         return(letters)
 
-    def getValue(self):
+    def getInitialRank(self):
         total = 0
         for letter in str(self.name):
             try:

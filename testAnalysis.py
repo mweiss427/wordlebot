@@ -62,6 +62,14 @@ class TestStringMethods(unittest.TestCase):
         phone = Word("phone", "uuuuu")
         self.assertFalse(enter == phone)
 
+    def testUpdateRank(self):
+        word = Word("enter" "nnwnn")
+        phone = Word("phone", "uuuuu")
+        wordList = [phone]
+        self.assertEqual(word.rank < 0)
+        word.updateRank(wordList)
+        self.assertEqual(word.rank == 0)
+
     def testIsChallengerHigherValue(self):
         enter = Word("enter", "uuuuu")
         phone = Word("phone", "uuuuu")

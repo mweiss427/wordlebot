@@ -1,27 +1,68 @@
 from analysis import Letters, Word, Words
 
+"""
+Bot is our trusty ol'e thinker it will make the human actions
+"""
+
 
 def __init__(self):
     a = 0
 
 
+"""
+The algorthm that gets the first word.
+"""
+
+
 def getFirstWord():
     words = Words()
-    # genesis word
-    word = Word("zzzzz", "uuuuu")
-    for cword in words.list:
-        if word.isChallengerHigherValue(cword):
-            word = cword
-    return(word)
+    return(words.getHighestRanked())
 
 
-"""gets the next most likley word"""
+"""gets the second word
+ differnt algothrms based on the number of turn """
 
 
-def getNextWord(wordList):
+def getSecondWord(wordList):
+    words = Words()
+
+    for word in words.list:
+        word.updateRank(wordList)
+    myword = words.getHighestRanked()
+    return(myword)
+
+
+def getThirdWord(wordList):
     words = Words()
 
     for word in words:
         word.updateRank(wordList)
+    myword = words.getHighestRanked()
+    return(myword)
 
-    return(word)
+
+def getFourthWord(wordList):
+    words = Words()
+
+    for word in words:
+        word.updateRank(wordList)
+    myword = words.getHighestRanked()
+    return(myword)
+
+
+def getFifthWord(wordList):
+    words = Words()
+
+    for word in words:
+        word.updateRank(wordList)
+    myword = words.getHighestRanked()
+    return(myword)
+
+
+def getSixthWord(wordList):
+    words = Words()
+
+    for word in words:
+        word.updateRank(wordList)
+    myword = words.getHighestRanked()
+    return(myword)
