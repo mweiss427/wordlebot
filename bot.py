@@ -1,24 +1,24 @@
-from analysis import Letters, Word, Words
+from analysis import Letters, Word, Words, Answer
 
 """
-Bot is our trusty ol'e thinker it will make the human actions
-"""
-
-
-def __init__(self):
-    a = 0
-
-
-"""
-The algorthm that gets the first word.
+Bot is our trusty ol'e thinker
 """
 
 
-def getFirstWord():
-    words = Words()
-    # words.getHighestRanked()
-    word = Word("enter", 'uuuuu')
-    return(word)
+class Bot:
+    answer = Answer()
+
+    def __init__(self):
+        self.answer = Answer()
+
+    # The algorthm to determe the first word... meep-morp
+    # First we need a list of words.
+    # I got them from https://github.com/hannahcode/word-guessing-game
+    # Then we use rank. the highest ranked word is selected
+
+    def getFirstWord(self):
+        words = Words()
+        return(words.getHighestRanked(self.answer))
 
 
 """gets the second word

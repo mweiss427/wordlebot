@@ -1,9 +1,17 @@
-from bot import getFirstWord, getSecondWord, getThirdWord, getFourthWord, getFifthWord, getSixthWord
+from bot import Bot
 from analysis import Letters, Word
 from decimal import *
 
+# Hello this is my first 'real' bot I'm creating.
+# So lets begin.  This bot will solve wordle I'm hoping for an average
+# solve of lower than 3.5 average
+
+# lets get to solving waht is best first word?
+# first lets setup our bot and say hello to the world
+autobot = Bot()
 print("Hello World")
-fword = getFirstWord()
+# lets begin...
+fword = autobot.getFirstWord()
 print(fword.printWord())
 # r right place
 # w wrong spot

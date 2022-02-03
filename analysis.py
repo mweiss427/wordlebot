@@ -11,12 +11,13 @@ class Words:
             for text in word_file:
                 self.list.append(Word(text.lower().strip(), "uuuuu"))
 
-    def getHighestRanked(self):
-        # genesis word
-        word = Word("zzzzz", "uuuuu")
+    # Here we want the highest ranked word.
+    # We have a list of words.
+    # we are going to loop through and compare them.
+    def getHighestRanked(self, answer):
+        word = Word("hello", "uuuuu")
         for cword in self.list:
-            if word.isChallengerHigherValue(cword):
-                word = cword
+            answer.compare(word, cword)
         return(word)
 
     def getList(self):
@@ -107,63 +108,6 @@ class Word:
             return True
         return(False)
 
-
-class Letters:
-    letters = dict()
-    getcontext().prec = 5
-    letters["a"] = float(Decimal(8.2))
-    letters["b"] = float(Decimal(1.5))
-    letters["c"] = float(Decimal(2.8))
-    letters["d"] = float(Decimal(4.3))
-    letters["e"] = float(Decimal(13.00))
-    letters["f"] = float(Decimal(2.2))
-    letters["g"] = float(Decimal(2.00))
-    letters["h"] = float(Decimal(6.1))
-    letters["i"] = float(Decimal(7.00))
-    letters["j"] = float(Decimal(.15))
-    letters["k"] = float(Decimal(.77))
-    letters["l"] = float(Decimal(4.0))
-    letters["m"] = float(Decimal(2.5))
-    letters["n"] = float(Decimal(6.7))
-    letters["o"] = float(Decimal(7.5))
-    letters["p"] = float(Decimal(1.9))
-    letters["q"] = float(Decimal(0.095))
-    letters["r"] = float(Decimal(6.0))
-    letters["s"] = float(Decimal(6.3))
-    letters["t"] = float(Decimal(9.1))
-    letters["u"] = float(Decimal(2.8))
-    letters["v"] = float(Decimal(.98))
-    letters["w"] = float(Decimal(2.4))
-    letters["x"] = float(Decimal(.15))
-    letters["y"] = float(Decimal(2.0))
-    letters["z"] = float(Decimal(.074))
-    letters["A"] = float(Decimal(8.2))
-    letters["B"] = float(Decimal(1.5))
-    letters["C"] = float(Decimal(2.8))
-    letters["D"] = float(Decimal(4.3))
-    letters["E"] = float(Decimal(13.00))
-    letters["F"] = float(Decimal(2.2))
-    letters["G"] = float(Decimal(2.00))
-    letters["H"] = float(Decimal(6.1))
-    letters["I"] = float(Decimal(7.00))
-    letters["J"] = float(Decimal(.15))
-    letters["K"] = float(Decimal(.77))
-    letters["L"] = float(Decimal(4.0))
-    letters["M"] = float(Decimal(2.5))
-    letters["N"] = float(Decimal(6.7))
-    letters["O"] = float(Decimal(7.5))
-    letters["P"] = float(Decimal(1.9))
-    letters["Q"] = float(Decimal(0.095))
-    letters["R"] = float(Decimal(6.0))
-    letters["S"] = float(Decimal(6.3))
-    letters["T"] = float(Decimal(9.1))
-    letters["U"] = float(Decimal(2.8))
-    letters["V"] = float(Decimal(.98))
-    letters["W"] = float(Decimal(2.4))
-    letters["X"] = float(Decimal(.15))
-    letters["Y"] = float(Decimal(2.0))
-    letters["Z"] = float(Decimal(.074))
-
     def display(self):
         return(self.letters)
 
@@ -180,3 +124,97 @@ class Letter:
         self.char = str(word)
         self.map = map
         self.index = index
+
+
+"""This is the stored results
+answer is where the letters will go if they are right
+letters are all of the letters with an associated rank
+
+debate should we check to see if the known letters are ...
+in the word vs just value them crazy high rank
+solved by checking for 0. two birds. or one data point? 
+"""
+
+
+class Answer:
+    answer = ["", "", "", "", ""]
+    letters = []
+
+    def __init__(self):
+        letters = Letters()
+
+    # comparing two words, using the data we have stored as needed
+    # aWord is not getting check if it is valid.
+    # This is A word basised, but most of the time A is the defender or carry over
+    # They should win most of the time, so it is up to B to prove its valititty
+    # retrun the winning word
+    def compare(self, aWord, bWord):
+        if self.isPossible(bWord):
+            if(self.getRank() < self.bWord.getRank()):
+                return(bWord)
+        return aWord
+
+    # Make sure the word is possible
+    def isPossible(self, word):
+        for letter in word.name:
+            if self.letters[letter] == 0:
+                return False
+        return True
+
+    # Get the rank of the word
+    # this is the fun part
+    # in the right spot is key
+    # that should be a multplier by 1000
+    # Word is an object that is used
+    # now the other way.  if the letter is 0 it is false,
+    # since we aren't yet trmming are list we need to account... noob
+    # I'm going to avoid caring about the w's that should be done by ranking
+    def getRank(self, word):
+        total = 1
+        # match the indexes of the two words will get the answer letter from the array
+        index = 0
+        for letter in word.name:
+            if(self.answer[index] == letter):
+                # correct letter correct spot. to the moon!
+                total*100000
+            if(self.isPossible()):
+                # burn it down never getting used.
+                total = 0
+
+
+"""Letters is a key value pair letters to a rank. 
+I started with the rank of the % of the words on the internet per wikipedia"""
+
+
+class Letters:
+    letters = dict()
+
+    def __init__(self):
+        getcontext().prec = 5
+        # this is ugly and gross and I"m a noob back off
+        self.letters["a"] = float(Decimal(8.2))
+        self.letters["b"] = float(Decimal(1.5))
+        self.letters["c"] = float(Decimal(2.8))
+        self.letters["d"] = float(Decimal(4.3))
+        self.letters["e"] = float(Decimal(13.00))
+        self.letters["f"] = float(Decimal(2.2))
+        self.letters["g"] = float(Decimal(2.00))
+        self.letters["h"] = float(Decimal(6.1))
+        self.letters["i"] = float(Decimal(7.00))
+        self.letters["j"] = float(Decimal(.15))
+        self.letters["k"] = float(Decimal(.77))
+        self.letters["l"] = float(Decimal(4.0))
+        self.letters["m"] = float(Decimal(2.5))
+        self.letters["n"] = float(Decimal(6.7))
+        self.letters["o"] = float(Decimal(7.5))
+        self.letters["p"] = float(Decimal(1.9))
+        self.letters["q"] = float(Decimal(0.095))
+        self.letters["r"] = float(Decimal(6.0))
+        self.letters["s"] = float(Decimal(6.3))
+        self.letters["t"] = float(Decimal(9.1))
+        self.letters["u"] = float(Decimal(2.8))
+        self.letters["v"] = float(Decimal(.98))
+        self.letters["w"] = float(Decimal(2.4))
+        self.letters["x"] = float(Decimal(.15))
+        self.letters["y"] = float(Decimal(2.0))
+        self.letters["z"] = float(Decimal(.074))
