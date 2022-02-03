@@ -55,9 +55,9 @@ class Word:
         # Loop through the letters of the played words.
         #
         for word in wordList:
-            for letter in word.letters(self):
+            for letter in word.letters():
                 if(letter.map == "n" and self.name.__contains__(letter.char)):
-                    word.rank = 0
+                    self.rank = 0
 
     """
     gets an array of letters.
@@ -85,7 +85,7 @@ class Word:
         return(total)
 
     def isChallengerHigherValue(self, challangeWord):
-        if(float(challangeWord.getValue()) >= float(self.getValue())):
+        if(challangeWord.rank >= self.rank):
             return True
         return False
 

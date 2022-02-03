@@ -7,55 +7,6 @@ class TestStringMethods(unittest.TestCase):
 
     ################## WORDS ##################
 
-    def testTrimList(self):
-        words = Words()
-        beforeWordCount = len(words.list)
-        enter = Word("enter", "wnwnn")
-        wordList = [enter]
-        words.trimList(wordList)
-        afterWordCount = len(words.list)
-        self.assertTrue(151 > afterWordCount)
-
-    def testRightLetter(self):
-        words = Words()
-        p = Letter("p", "n", 0)
-        beforeWordCount = len(words.list)
-        words.rightLetter(p)
-        afterWordCount = len(words.list)
-        self.assertTrue(beforeWordCount > afterWordCount)
-
-    def testWrongLetter(self):
-        words = Words()
-        p = Letter("p", "n", 0)
-        beforeWordCount = len(words.list)
-        words.wrongLetter(p)
-        afterWordCount = len(words.list)
-        self.assertTrue(beforeWordCount > afterWordCount)
-
-    def testWrongSpot(self):
-        words = Words()
-        letter = Letter("e", "w", 0)
-        beforeCount = len(words.list)
-        words.wrongSpot(letter)
-        afterCount = len(words.list)
-        self.assertTrue(beforeCount > afterCount)
-
-    def testRemove(self):
-        words = Words()
-        enter = Word("enter", "uuuuu")
-        naughty_list = [enter]
-        words.remove(naughty_list)
-        for word in words.list:
-            self.assertTrue(enter.name != word.name)
-
-    def testYeeshRemove(self):
-        words = Words()
-        yeesh = Word("yeesh", "uuuuu")
-        naughty_list = [yeesh]
-        words.remove(naughty_list)
-        for word in words.list:
-            self.assertTrue("yeesh" != word.name)
-
     ################## WORD ##################
     def test__eq__(self):
         enter = Word("enter", "uuuuu")
@@ -63,12 +14,12 @@ class TestStringMethods(unittest.TestCase):
         self.assertFalse(enter == phone)
 
     def testUpdateRank(self):
-        word = Word("enter" "nnwnn")
-        phone = Word("phone", "uuuuu")
+        word = Word("enter", "nnwnn")
+        phone = Word("phone", "nnwnn")
         wordList = [phone]
-        self.assertEqual(word.rank < 0)
+        self.assertTrue(word.rank > 0)
         word.updateRank(wordList)
-        self.assertEqual(word.rank == 0)
+        self.assertEqual(word.rank, 0)
 
     def testIsChallengerHigherValue(self):
         enter = Word("enter", "uuuuu")
