@@ -16,7 +16,9 @@ The algorthm that gets the first word.
 
 def getFirstWord():
     words = Words()
-    return(words.getHighestRanked())
+    # words.getHighestRanked()
+    word = Word("enter", 'uuuuu')
+    return(word)
 
 
 """gets the second word
@@ -35,7 +37,7 @@ def getSecondWord(wordList):
 def getThirdWord(wordList):
     words = Words()
 
-    for word in words:
+    for word in words.list:
         word.updateRank(wordList)
     myword = words.getHighestRanked()
     return(myword)
@@ -44,7 +46,7 @@ def getThirdWord(wordList):
 def getFourthWord(wordList):
     words = Words()
 
-    for word in words:
+    for word in words.list:
         word.updateRank(wordList)
     myword = words.getHighestRanked()
     return(myword)
@@ -53,7 +55,7 @@ def getFourthWord(wordList):
 def getFifthWord(wordList):
     words = Words()
 
-    for word in words:
+    for word in words.list:
         word.updateRank(wordList)
     myword = words.getHighestRanked()
     return(myword)
@@ -62,7 +64,7 @@ def getFifthWord(wordList):
 def getSixthWord(wordList):
     words = Words()
 
-    for word in words:
+    for word in words.list:
         word.updateRank(wordList)
     myword = words.getHighestRanked()
     return(myword)

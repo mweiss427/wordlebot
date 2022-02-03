@@ -43,6 +43,7 @@ class Word:
     def printWord(self):
         print("word: " + str(self.name))
         print("map : " + str(self.map))
+        print("rank : " + str(self.rank))
 
     def setMap(self, map):
         self.map = map
@@ -51,6 +52,7 @@ class Word:
 
     def updateRank(self, wordList):
         # first lets loop and zero out the words we know not to be true
+        # now lets times by 5 for a 'r' and 2 for a w
 
         # Loop through the letters of the played words.
         #
@@ -58,6 +60,16 @@ class Word:
             for letter in word.letters():
                 if(letter.map == "n" and self.name.__contains__(letter.char)):
                     self.rank = 0
+                if(letter.map == "w"):
+                    if(self.name.__contains__(letter.char)):
+                        self.rank = self.rank * 2
+                    elif(True):  # TODO to fix this to make it 0 if the index of the word is in the wrong place
+                        self.rank = 0
+                if(letter.map == "r"):
+                    if(self.name.__contains__(letter.char)):  # index of sorts
+                        self.rank = self.rank * 5
+                    else:
+                        self.rank = 0
 
     """
     gets an array of letters.
