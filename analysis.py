@@ -15,9 +15,9 @@ class Words:
     # We have a list of words.
     # we are going to loop through and compare them.
     def getHighestRanked(self, answer):
-        word = Word("hello", "uuuuu")
+        word = Word("zzzzz", "uuuuu")
         for cword in self.list:
-            answer.compare(word, cword)
+            word = answer.compare(word, cword)
         return(word)
 
     def getList(self):
@@ -29,12 +29,11 @@ class Words:
 class Word:
     name = []
     map = []
-    rank = 0
+    rank = 1
 
     def __init__(self, word, map):
         self.name = str(word)
         self.map = map
-        self.rank = self.getInitialRank()
 
     def __eq__(self, other):
         if (self.name == other.name and self.map == other.map):
@@ -44,7 +43,6 @@ class Word:
     def printWord(self):
         print("word: " + str(self.name))
         print("map : " + str(self.map))
-        print("rank : " + str(self.rank))
 
     def setMap(self, map):
         self.map = map
@@ -138,10 +136,12 @@ solved by checking for 0. two birds. or one data point?
 
 class Answer:
     answer = ["", "", "", "", ""]
-    letters = []
+    knownletters = []
+    knownWrongDoubles = []
 
     def __init__(self):
-        letters = Letters()
+        self.letters = Letters()
+        self.knownletters = []
 
     # comparing two words, using the data we have stored as needed
     # aWord is not getting check if it is valid.
@@ -150,36 +150,82 @@ class Answer:
     # retrun the winning word
     def compare(self, aWord, bWord):
         if self.isPossible(bWord):
-            if(self.getRank() < self.bWord.getRank()):
+            if(self.getRank(aWord) < self.getRank(bWord)):
                 return(bWord)
-        return aWord
+        return(aWord)
 
     # Make sure the word is possible
     def isPossible(self, word):
+        # this checks to see if it isn't there at all.
         for letter in word.name:
-            if self.letters[letter] == 0:
+            value = self.letters.letters[letter]
+            if (value == 0):
                 return False
+            # I want to say, if it has a double letter.
+            # and that letter is in the known wrong double list... it gone!
+            if(word.name.count(letter) and self.knownWrongDoubles.__contains__(letter)):
+                return False
+
         return True
 
     # Get the rank of the word
-    # this is the fun part
+    # now the other way.  if the letter is 0 it is false,
     # in the right spot is key
     # that should be a multplier by 1000
     # Word is an object that is used
-    # now the other way.  if the letter is 0 it is false,
     # since we aren't yet trmming are list we need to account... noob
-    # I'm going to avoid caring about the w's that should be done by ranking
     def getRank(self, word):
         total = 1
+        if(len(list(set(word.name))) == 5):
+            total = 400
+        if(len(list(set(word.name))) == 4):
+            total = 30
+        if(len(list(set(word.name))) == 3):
+            total = 2
+        if(len(list(set(word.name))) == 2):
+            total = 1
+        if(len(list(set(word.name))) == 1):
+            total = 0
+
         # match the indexes of the two words will get the answer letter from the array
         index = 0
+        if(not self.isPossible(word)):
+            # burn it down never getting used.
+            return 0
         for letter in word.name:
+            total = total * self.letters.letters[letter]
             if(self.answer[index] == letter):
                 # correct letter correct spot. to the moon!
                 total*100000
-            if(self.isPossible()):
-                # burn it down never getting used.
-                total = 0
+            if(self.knownletters.__contains__(letter)):
+                if(self.answer[index] == letter):
+                    return 0  # Letter in wrong spot
+                # To orbit
+                total*1000
+            index = index + 1
+        word.rank = total
+        return total
+
+    # This should tweak the letters since that is where the ranking is truly held.
+    def updateAnswer(self, playedWord):
+        index = 0
+        # first lets loop and zero out the letters we know not to be true
+        for letter in playedWord.letters():
+            if(letter.map == "n"):
+                # we can't just do this due to double letter.
+                if(self.answer.__contains__(letter.char)):
+                    # something
+                    # Sudo reseting the letter.  this needs a stat from online
+                    # 2%... fuck it! Sure
+                    self.letters.letters[letter.char] = 20
+                    self.knownWrongDoubles.append(letter.char)
+                else:
+                    self.letters.letters[letter.char] = 0
+            if(letter.map == "w"):
+                self.knownletters.append(letter.char)
+            if(letter.map == "r"):
+                self.answer[index] = letter.char
+            index = index + 1
 
 
 """Letters is a key value pair letters to a rank. 
@@ -190,31 +236,29 @@ class Letters:
     letters = dict()
 
     def __init__(self):
-        getcontext().prec = 5
-        # this is ugly and gross and I"m a noob back off
-        self.letters["a"] = float(Decimal(8.2))
-        self.letters["b"] = float(Decimal(1.5))
-        self.letters["c"] = float(Decimal(2.8))
-        self.letters["d"] = float(Decimal(4.3))
-        self.letters["e"] = float(Decimal(13.00))
-        self.letters["f"] = float(Decimal(2.2))
-        self.letters["g"] = float(Decimal(2.00))
-        self.letters["h"] = float(Decimal(6.1))
-        self.letters["i"] = float(Decimal(7.00))
-        self.letters["j"] = float(Decimal(.15))
-        self.letters["k"] = float(Decimal(.77))
-        self.letters["l"] = float(Decimal(4.0))
-        self.letters["m"] = float(Decimal(2.5))
-        self.letters["n"] = float(Decimal(6.7))
-        self.letters["o"] = float(Decimal(7.5))
-        self.letters["p"] = float(Decimal(1.9))
-        self.letters["q"] = float(Decimal(0.095))
-        self.letters["r"] = float(Decimal(6.0))
-        self.letters["s"] = float(Decimal(6.3))
-        self.letters["t"] = float(Decimal(9.1))
-        self.letters["u"] = float(Decimal(2.8))
-        self.letters["v"] = float(Decimal(.98))
-        self.letters["w"] = float(Decimal(2.4))
-        self.letters["x"] = float(Decimal(.15))
-        self.letters["y"] = float(Decimal(2.0))
-        self.letters["z"] = float(Decimal(.074))
+        self.letters["a"] = 82
+        self.letters["b"] = 15
+        self.letters["c"] = 28
+        self.letters["d"] = 43
+        self.letters["e"] = 130
+        self.letters["f"] = 22
+        self.letters["g"] = 20
+        self.letters["h"] = 61
+        self.letters["i"] = 70
+        self.letters["j"] = 2
+        self.letters["k"] = 8
+        self.letters["l"] = 4
+        self.letters["m"] = 25
+        self.letters["n"] = 67
+        self.letters["o"] = 75
+        self.letters["p"] = 19
+        self.letters["q"] = 1
+        self.letters["r"] = 60
+        self.letters["s"] = 63
+        self.letters["t"] = 91
+        self.letters["u"] = 28
+        self.letters["v"] = 9
+        self.letters["w"] = 24
+        self.letters["x"] = 2
+        self.letters["y"] = 20
+        self.letters["z"] = 1

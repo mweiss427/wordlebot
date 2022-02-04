@@ -6,7 +6,7 @@ from decimal import *
 # So lets begin.  This bot will solve wordle I'm hoping for an average
 # solve of lower than 3.5 average
 
-# lets get to solving waht is best first word?
+# lets get to solving what is best first word?
 # first lets setup our bot and say hello to the world
 autobot = Bot()
 print("Hello World")
@@ -27,7 +27,7 @@ fword.setMap(input())
 wordList = [fword]
 fword.printWord()
 
-sword = getSecondWord(wordList)
+sword = autobot.getSecondWord(wordList)
 sword.printWord()
 wordList.append(sword)
 
@@ -37,7 +37,7 @@ print('''Enter String Map
 # n nothing''')
 sword.setMap(input())
 
-tword = getThirdWord(wordList)
+tword = autobot.getThirdWord(wordList)
 tword.printWord()
 wordList.append(tword)
 
@@ -47,7 +47,7 @@ print('''Enter String Map
 # n nothing''')
 tword.setMap(input())
 
-fword = getFourthWord(wordList)
+fword = autobot.getFourthWord(wordList)
 fword.printWord()
 wordList.append(fword)
 print('''Enter String Map
@@ -56,7 +56,7 @@ print('''Enter String Map
 # n nothing''')
 fword.setMap(input())
 
-fiveword = getFifthWord(wordList)
+fiveword = autobot.getFifthWord(wordList)
 fiveword.printWord()
 wordList.append(fiveword)
 
@@ -66,7 +66,7 @@ print('''Enter String Map
 # n nothing''')
 fiveword.setMap(input())
 
-sixword = getSixthWord(wordList)
+sixword = autobot.getSixthWord(wordList)
 sixword.printWord()
 wordList.append(sixword)
 

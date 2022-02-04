@@ -7,9 +7,11 @@ Bot is our trusty ol'e thinker
 
 class Bot:
     answer = Answer()
+    words = Words()
 
     def __init__(self):
         self.answer = Answer()
+        self.words = Words()
 
     # The algorthm to determe the first word... meep-morp
     # First we need a list of words.
@@ -17,54 +19,34 @@ class Bot:
     # Then we use rank. the highest ranked word is selected
 
     def getFirstWord(self):
-        words = Words()
-        return(words.getHighestRanked(self.answer))
+        return(self.words.getHighestRanked(self.answer))
 
+    def getSecondWord(self, wordList):
+        for word in wordList:
+            self.answer.updateAnswer(word)
+        myword = self.words.getHighestRanked(self.answer)
+        return(myword)
 
-"""gets the second word
- differnt algothrms based on the number of turn """
+    def getThirdWord(self, wordList):
+        for word in wordList:
+            self.answer.updateAnswer(word)
+        myword = self.words.getHighestRanked(self.answer)
+        return(myword)
 
+    def getFourthWord(self, wordList):
+        for word in wordList:
+            self.answer.updateAnswer(word)
+        myword = self.words.getHighestRanked(self.answer)
+        return(myword)
 
-def getSecondWord(wordList):
-    words = Words()
+    def getFifthWord(self, wordList):
+        for word in wordList:
+            self.answer.updateAnswer(word)
+        myword = self.words.getHighestRanked(self.answer)
+        return(myword)
 
-    for word in words.list:
-        word.updateRank(wordList)
-    myword = words.getHighestRanked()
-    return(myword)
-
-
-def getThirdWord(wordList):
-    words = Words()
-
-    for word in words.list:
-        word.updateRank(wordList)
-    myword = words.getHighestRanked()
-    return(myword)
-
-
-def getFourthWord(wordList):
-    words = Words()
-
-    for word in words.list:
-        word.updateRank(wordList)
-    myword = words.getHighestRanked()
-    return(myword)
-
-
-def getFifthWord(wordList):
-    words = Words()
-
-    for word in words.list:
-        word.updateRank(wordList)
-    myword = words.getHighestRanked()
-    return(myword)
-
-
-def getSixthWord(wordList):
-    words = Words()
-
-    for word in words.list:
-        word.updateRank(wordList)
-    myword = words.getHighestRanked()
-    return(myword)
+    def getSixthWord(self, wordList):
+        for word in wordList:
+            self.answer.updateAnswer(word)
+        myword = self.words.getHighestRanked(self.answer)
+        return(myword)
