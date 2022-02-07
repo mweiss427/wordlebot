@@ -1,5 +1,7 @@
 from decimal import *
 from operator import contains
+from unicodedata import name
+import yaml
 
 
 class Words:
@@ -130,7 +132,7 @@ letters are all of the letters with an associated rank
 
 debate should we check to see if the known letters are ...
 in the word vs just value them crazy high rank
-solved by checking for 0. two birds. or one data point? 
+solved by checking for 0. two birds. or one data point?
 """
 
 
@@ -142,6 +144,12 @@ class Answer:
     def __init__(self):
         self.letters = Letters()
         self.knownletters = []
+
+    # So this puts the cool shit into yaml
+    def toYaml(self):
+        yaml.dump(self)
+
+        return()
 
     # comparing two words, using the data we have stored as needed
     # aWord is not getting check if it is valid.
@@ -158,6 +166,7 @@ class Answer:
     def isPossible(self, word):
         # this checks to see if it isn't there at all.
         for letter in word.name:
+            index = 0
             value = self.letters.letters[letter]
             if (value == 0):
                 return False
@@ -165,6 +174,14 @@ class Answer:
             # and that letter is in the known wrong double list... it gone!
             if(word.name.count(letter) and self.knownWrongDoubles.__contains__(letter)):
                 return False
+
+            # I need to verify that once I find a letter I only use that letter
+            # if answer != "" - meaning it is set
+            # and the letter doesn't match it should be tossed
+            if(self.answer[index] != ''):
+                if(self.answer[index] != letter):
+                    return False
+            index = index + 1
 
         return True
 
